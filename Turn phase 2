@@ -1,0 +1,60 @@
+public class PokemonGame {
+    private PokemonPlayer playerOne;
+    private PokemonPlayer playerTwo;
+    private PokemonPlayer currentPlayer;
+    private Zone stadium = new Zone(ZoneTypePokemon.Stadium);
+
+    public PokemonGame(String name1, String name2) {
+        playerOne = new PokemonPlayer(name1);
+        playerTwo = new PokemonPlayer(name2);
+        currentPlayer = playerOne;
+    }
+
+    public void startGame() {
+        // TODO: Shuffle player decks
+        // TODO: Draw opening hands (7 each)
+        // TODO: Assign Prize cards (6 each)
+        // TODO: Determine starting player
+    }
+
+    public void playTurn() {
+        drawPhase();
+        mainPhase();
+        // attackPhase will come in next milestone
+        endTurn();
+        switchCurrentPlayer();
+    }
+
+    private void drawPhase() {
+        currentPlayer.drawCard();
+    }
+
+    private void mainPhase() {
+        // TODO: allow currentPlayer to:
+        // - Play one Basic Pokémon
+        // - Attach one Energy
+        // - Play Trainer cards
+        // - Retreat / evolve / use abilities
+    }
+
+    private void endTurn() {
+        currentPlayer.endTurnReset();
+    }
+
+    private void switchCurrentPlayer() {
+        currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+    }
+
+    public void gameLoop() {
+        startGame();
+        while (true) {
+            playTurn();
+            // TODO: check win conditions: prize taken, no active Pokémon, deck out
+        }
+    }
+
+    public static void main(String[] args) {
+        PokemonGame g = new PokemonGame("Ash", "Gary");
+        g.gameLoop();
+    }
+}
