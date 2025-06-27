@@ -1,0 +1,10 @@
+public enum ZoneTypePokemon {
+    Deck,          // Player’s draw pile
+    Hand,          // Cards in hand
+    Discard,       // Discard pile
+    Active,        // Active Pokémon
+    Bench,         // List of Bench Pokémon (up to 5)
+    Prize,         // Prize card slots (face-down)
+    Stadium,       // Shared global stadium zone
+    LostZone       // Pokémon moved out of play
+}
