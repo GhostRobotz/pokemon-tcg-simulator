@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class PokemonPlayer {
+    private String name;
+    private Zone deck = new Zone(ZoneTypePokemon.Deck);
+    private Zone hand = new Zone(ZoneTypePokemon.Hand);
+    private Zone discard = new Zone(ZoneTypePokemon.Discard);
+    private Zone active = new Zone(ZoneTypePokemon.Active);
+    private Zone bench = new Zone(ZoneTypePokemon.Bench);
+    private Zone prize = new Zone(ZoneTypePokemon.Prize);
+
+    private boolean energyAttachedThisTurn = false;
+    private boolean supporterPlayedThisTurn = false;
+
+    public PokemonPlayer(String name) {
+        this.name = name;
+        // TODO: Initialize deck, shuffle, draw opening hand + set prizes
+    }
+
+    public void drawCard() {
+        if (!deck.isEmpty()) {
+            Card c = deck.takeTop();
+            hand.add(c);
+        } else {
+            // TODO: Handle deck-out loss condition
+        }
+    }
+
+    public boolean playBasicPokemon(Card basic) {
+        if (basic.isBasic() && bench.size() < 5) {
+            hand.remove(basic);
+            bench.add(basic);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean attachEnergy(Card energy, Card target) {
+        if (!energyAttachedThisTurn && energy.isEnergy()) {
+            hand.remove(energy);
+            target.addEnergy(energy);
+            energyAttachedThisTurn = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void endTurnReset() {
+        energyAttachedThisTurn = false;
+        supporterPlayedThisTurn = false;
+    }
+
+    // TODO: Add playTrainer, retreat, evolve, useAbilities...
+}
